@@ -7,11 +7,28 @@ const CURRENCY_BITCOIN = 'BTC';
 
 const isAnyBTC = (from, to) => [from, to].includes(CURRENCY_BITCOIN);
 
+
+/**
+ * @typedef {Object} opts 
+ * @prop {Number} amount -Amount of money you want to convert
+ * @prop {String} from -Currency of reference
+ * @prop {String} to -Currency converted
+ */
+/**
+ * Enter default parameters
+ * @param opts -The options
+ * @return {String} -The conversion wanted
+ */
 module.exports = async opts => {
   const {amount = 1, from = 'USD', to = CURRENCY_BITCOIN} = opts;
   const promises = [];
   let base = from;
 
+  /**
+   * @param {String} from
+   * @param {String} to
+   * @return {Bool} -If one of the parameters are equal to BTC
+  */
   const anyBTC = isAnyBTC(from, to);
 
   if (anyBTC) {
@@ -53,7 +70,7 @@ module.exports = async opts => {
     return money.convert(amount, conversionOpts);
   } catch (error) {
     throw new Error (
-      '💵 Please specify a valid `from` and/or `to` currency value!'
+      "💵 Please specify a valid `from` and/or `to` currency value!"
     );
   }
 };
